@@ -83,11 +83,11 @@ extension ViewController {
         searchTextField.backgroundColor = .systemFill
 
         conditionImageView.translatesAutoresizingMaskIntoConstraints = false
-        conditionImageView.image = UIImage(systemName: "sun.max")
-        conditionImageView.tintColor = .label
+        conditionImageView.image = UIImage(systemName: "sun.max.fill")
+        conditionImageView.tintColor = .systemYellow
         temperatureLabel.translatesAutoresizingMaskIntoConstraints = false
         temperatureLabel.font = UIFont.systemFont(ofSize: 65)
-        temperatureLabel.attributedText = makeTemperatureText(with: "23.4")
+        temperatureLabel.attributedText = makeTemperatureText(with: "23")
 
         cityLabel.translatesAutoresizingMaskIntoConstraints = false
         cityLabel.text = "Almaty"
@@ -222,6 +222,17 @@ extension ViewController: WeatherServiceDelegate {
     func didFetchWeather(_ weatherService: WeatherService, _ weather: WeatherModel) {
         self.temperatureLabel.attributedText = self.makeTemperatureText(with: weather.temperatureString)
         self.conditionImageView.image = UIImage(systemName: weather.conditionName)
+        if conditionImageView.image == UIImage(systemName: "sun.max.fill") {
+            conditionImageView.tintColor = .systemYellow
+        } else if conditionImageView.image == UIImage(systemName: "cloud.bolt.fill") {
+            conditionImageView.tintColor = .label
+        } else if conditionImageView.image == UIImage(systemName: "cloud.drizzle.fill") {
+            conditionImageView.tintColor = .label
+        } else if conditionImageView.image == UIImage(systemName: "cloud.rain.fill") {
+            conditionImageView.tintColor = .tertiaryLabel
+        } else if conditionImageView.image == UIImage(systemName: "cloud.fog.fill") {
+            conditionImageView.tintColor = .tertiaryLabel
+        }
         self.cityLabel.text = weather.cityName
     }
     
